@@ -1,17 +1,25 @@
+//-------------------------------------
+//1. 최단거리로 가는 방법
+//2. 최소시간으로 가는 방법
+//3. 지하철이 운행하지 않는 시간 넣기
+//4.
+// 
+//--------------------------------------
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <limits.h>
+#include <time.h>
 
 #pragma warning(disable : 4996)
 
 #define MAX_STATION_NAME 100
 #define MAX_STATIONS 1000
-#define TRANSFER_PENALTY 3  // 추가 환승 3분 시간 패널티
+#define TRANSFER_PENALTY 3  // 추가 환승 패널티
 
 //---------------- 구조체 정의 ----------------
 typedef struct SubwayEdge {
-    int destIndext;
+    int destIndex;
     float time;
     float distance;
     char line;
@@ -39,7 +47,7 @@ int getStationIndexByName(const char* name) {
 //---------------- 에지 추가 함수 ----------------
 void addEdge(int from, int to, int time, int distance, char line) {
     SubwayEdge* edge = (SubwayEdge*)malloc(sizeof(SubwayEdge));
-    edge->destIndext = to;
+    edge->destIndex = to;
     edge->time = time;
     edge->distance = distance;
     edge->line = line;
@@ -75,17 +83,15 @@ void loadCSV(const char* filename) {
 
         int fromIndex = getStationIndexByName(name1);
         if (fromIndex == -1) {
+            memset(&stations[stationCount], 0, sizeof(Station));  
             strncpy(stations[stationCount].name, name1, MAX_STATION_NAME - 1);
-            stations[stationCount].name[MAX_STATION_NAME - 1] = '\0';
-            stations[stationCount].edge = NULL;
             fromIndex = stationCount++;
         }
 
         int toIndex = getStationIndexByName(name2);
         if (toIndex == -1) {
+            memset(&stations[stationCount], 0, sizeof(Station)); 
             strncpy(stations[stationCount].name, name2, MAX_STATION_NAME - 1);
-            stations[stationCount].name[MAX_STATION_NAME - 1] = '\0';
-            stations[stationCount].edge = NULL;
             toIndex = stationCount++;
         }
 
@@ -140,8 +146,8 @@ void findPath(const char* startName, const char* endName, int mode) {
 
         SubwayEdge* e = stations[u].edge;
         while (e) {
-            int v = e->destIndext;
-            int weight = (mode == 1) ? e->distance : e->time;
+            int v = e->destIndex;
+            int weight = (mode == 1) ? e->time: e->distance;
 
             if (prevLine[u] != 0 && prevLine[u] != e->line)
                 weight += TRANSFER_PENALTY;
@@ -161,7 +167,7 @@ void findPath(const char* startName, const char* endName, int mode) {
     }
 
     // 결과 출력
-    printf("\n최소 %s: %d\n", (mode == 1) ? "거리(Km)" : "시간(분)", cost[end]);
+    printf("\n최소 %s: %d\n", (mode == 1) ? "시간(분)" : "거리(Km)", cost[end]);
     printf("경로: ");
     int path[MAX_STATIONS], count = 0;
 
@@ -198,6 +204,17 @@ int main() {
             printStations();
             break;
         case 3: {
+            // 현재 시간 확인
+            time_t now;
+            struct tm* local;
+            time(&now);
+            local = localtime(&now);
+
+            if (local->tm_hour >= 0 && local->tm_hour < 5) {
+                printf("\n현재 시각은 %02d:%02d입니다. 지하철 운행 시간이 아닙니다.\n", local->tm_hour, local->tm_min);
+                break;
+            }
+
             char start[MAX_STATION_NAME], end[MAX_STATION_NAME];
             int mode;
 

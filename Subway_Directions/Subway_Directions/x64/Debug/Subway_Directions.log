@@ -1,5 +1,6 @@
-﻿  Subway_Directions.c
-C:\Users\tksk8\OneDrive\文件\GitHub\Subway_Directions\Subway_Directions\Subway_Directions\Subway_Directions.c(43,18): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\tksk8\OneDrive\文件\GitHub\Subway_Directions\Subway_Directions\Subway_Directions\Subway_Directions.c(44,22): warning C4244: '=': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\tksk8\OneDrive\文件\GitHub\Subway_Directions\Subway_Directions\Subway_Directions\Subway_Directions.c(144,38): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  Subway_Directions.vcxproj -> C:\Users\tksk8\OneDrive\文件\GitHub\Subway_Directions\Subway_Directions\x64\Debug\Subway_Directions.exe
+﻿  test.c
+C:\Users\unive\OneDrive\문서\GitHub\Subway_Directions_program\Subway_Directions\Subway_Directions\Subway_Directions\test.c(89,26): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\unive\OneDrive\문서\GitHub\Subway_Directions_program\Subway_Directions\Subway_Directions\Subway_Directions\test.c(90,22): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\unive\OneDrive\문서\GitHub\Subway_Directions_program\Subway_Directions\Subway_Directions\Subway_Directions\test.c(137,19): warning C4305: '=': 'int'에서 'float'(으)로 잘립니다.
+C:\Users\unive\OneDrive\문서\GitHub\Subway_Directions_program\Subway_Directions\Subway_Directions\Subway_Directions\test.c(145,25): warning C4305: '초기화 중': 'int'에서 'float'(으)로 잘립니다.
+  Subway_Directions.vcxproj -> C:\Users\unive\OneDrive\문서\GitHub\Subway_Directions_program\Subway_Directions\Subway_Directions\x64\Debug\Subway_Directions.exe
