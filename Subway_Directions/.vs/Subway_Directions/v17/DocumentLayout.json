@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\unive\\OneDrive\\\uBB38\uC11C\\GitHub\\Subway_Directions_program\\Subway_Directions\\Subway_Directions\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{65A36931-2624-4157-A44F-7E6FFD27D7A9}|Subway_Directions\\Subway_Directions.vcxproj|C:\\Users\\unive\\OneDrive\\\uBB38\uC11C\\GitHub\\Subway_Directions_program\\Subway_Directions\\Subway_Directions\\Subway_Directions\\test.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{65A36931-2624-4157-A44F-7E6FFD27D7A9}|Subway_Directions\\Subway_Directions.vcxproj|solutionrelative:Subway_Directions\\test.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{65A36931-2624-4157-A44F-7E6FFD27D7A9}|Subway_Directions\\Subway_Directions.vcxproj|C:\\Users\\unive\\OneDrive\\\uBB38\uC11C\\GitHub\\Subway_Directions_program\\Subway_Directions\\Subway_Directions\\Subway_Directions\\Subway_Directions.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{65A36931-2624-4157-A44F-7E6FFD27D7A9}|Subway_Directions\\Subway_Directions.vcxproj|solutionrelative:Subway_Directions\\Subway_Directions.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{65A36931-2624-4157-A44F-7E6FFD27D7A9}|Subway_Directions\\Subway_Directions.vcxproj|C:\\Users\\unive\\OneDrive\\\uBB38\uC11C\\GitHub\\Subway_Directions_program\\Subway_Directions\\Subway_Directions\\Subway_Directions\\test.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{65A36931-2624-4157-A44F-7E6FFD27D7A9}|Subway_Directions\\Subway_Directions.vcxproj|solutionrelative:Subway_Directions\\test.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,7 +18,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -26,26 +26,26 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "test.c",
               "DocumentMoniker": "C:\\Users\\unive\\OneDrive\\\uBB38\uC11C\\GitHub\\Subway_Directions_program\\Subway_Directions\\Subway_Directions\\Subway_Directions\\test.c",
               "RelativeDocumentMoniker": "Subway_Directions\\test.c",
               "ToolTip": "C:\\Users\\unive\\OneDrive\\\uBB38\uC11C\\GitHub\\Subway_Directions_program\\Subway_Directions\\Subway_Directions\\Subway_Directions\\test.c",
               "RelativeToolTip": "Subway_Directions\\test.c",
-              "ViewState": "AgIAAP0AAAAAAAAAAAAYwAYBAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACIBAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
               "WhenOpened": "2025-06-05T04:42:49.525Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "Subway_Directions.c",
               "DocumentMoniker": "C:\\Users\\unive\\OneDrive\\\uBB38\uC11C\\GitHub\\Subway_Directions_program\\Subway_Directions\\Subway_Directions\\Subway_Directions\\Subway_Directions.c",
               "RelativeDocumentMoniker": "Subway_Directions\\Subway_Directions.c",
               "ToolTip": "C:\\Users\\unive\\OneDrive\\\uBB38\uC11C\\GitHub\\Subway_Directions_program\\Subway_Directions\\Subway_Directions\\Subway_Directions\\Subway_Directions.c",
               "RelativeToolTip": "Subway_Directions\\Subway_Directions.c",
-              "ViewState": "AgIAAN0AAAAAAAAAAAAYwPUAAAAFAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
               "WhenOpened": "2025-06-04T09:27:21.899Z",
               "EditorCaption": ""

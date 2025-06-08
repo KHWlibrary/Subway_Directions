@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <limits.h>
-#include <ctype.h>      //trim 함수용
+#include <ctype.h>
 #include <time.h>
 
 #pragma warning(disable : 4996)
@@ -11,12 +11,11 @@
 #define MAX_STATIONS 1000
 #define TRANSFER_PENALTY 3
 
-//---------------- 구조체 정의 ----------------
 typedef struct SubwayEdge {
     int destIndex;
-    float time;                     
-    float distance;                 
-    int line;                       
+    float time;
+    float distance;
+    int line;
     struct SubwayEdge* next;
 } SubwayEdge;
 
@@ -25,11 +24,9 @@ typedef struct Station {
     SubwayEdge* edge;
 } Station;
 
-//---------------- 전역 변수 ----------------
 Station stations[MAX_STATIONS];
 int stationCount = 0;
 
-//---------------- 문자열 정리 함수 [추가] ----------------
 void trim(char* str) {
     str[strcspn(str, "\r\n")] = 0;
     char* start = str;
@@ -41,7 +38,6 @@ void trim(char* str) {
     if (start != str) memmove(str, start, strlen(start) + 1);
 }
 
-//---------------- 역 이름으로 인덱스 찾기 ----------------
 int getStationIndexByName(const char* name) {
     for (int i = 0; i < stationCount; i++) {
         if (strcmp(stations[i].name, name) == 0)
@@ -50,8 +46,7 @@ int getStationIndexByName(const char* name) {
     return -1;
 }
 
-//---------------- 에지 추가 함수 ----------------
-void addEdge(int from, int to, float time, float distance, int line) {  
+void addEdge(int from, int to, float time, float distance, int line) {
     SubwayEdge* edge = (SubwayEdge*)malloc(sizeof(SubwayEdge));
     edge->destIndex = to;
     edge->time = time;
@@ -61,7 +56,6 @@ void addEdge(int from, int to, float time, float distance, int line) {
     stations[from].edge = edge;
 }
 
-//---------------- CSV 파일 로딩 ----------------
 void loadCSV(const char* filename) {
     FILE* file = fopen("subway_line.csv", "r");
     if (!file) {
@@ -70,7 +64,7 @@ void loadCSV(const char* filename) {
     }
 
     char buffer[256];
-    fgets(buffer, sizeof(buffer), file); // 헤더 건너뜀
+    fgets(buffer, sizeof(buffer), file);
 
     while (fgets(buffer, sizeof(buffer), file)) {
         char* token = strtok(buffer, ",");
@@ -83,11 +77,11 @@ void loadCSV(const char* filename) {
         char* t_str = strtok(NULL, ",");
         if (!name1 || !name2 || !d_str || !t_str) continue;
 
-        trim(name1);               
-        trim(name2);               
+        trim(name1);
+        trim(name2);
 
-        float distance = atof(d_str); 
-        float time = atof(t_str);     
+        float distance = atof(d_str);
+        float time = atof(t_str);
 
         int fromIndex = getStationIndexByName(name1);
         if (fromIndex == -1) {
@@ -104,14 +98,23 @@ void loadCSV(const char* filename) {
         }
 
         addEdge(fromIndex, toIndex, time, distance, line);
-        addEdge(toIndex, fromIndex, time, distance, line); // 양방향
+        addEdge(toIndex, fromIndex, time, distance, line);
     }
 
     fclose(file);
     printf("총 %d개의 역을 불러왔습니다.\n", stationCount);
 }
 
-//---------------- 역 목록 출력 ----------------
+int calculateFare(float distance) {
+    int fare = 1400;
+    if (distance > 10.0f) {
+        int extra = distance - 10.0f;
+        int blocks = (int)((extra + 0.0001f + 4.999f) / 5.0f);
+        fare += blocks * 100;
+    }
+    return fare;
+}
+
 void printStations() {
     printf("\n--- 지하철 역 목록 ---\n");
     for (int i = 0; i < stationCount; i++) {
@@ -119,7 +122,6 @@ void printStations() {
     }
 }
 
-//---------------- 경로 탐색 (다익스트라 기반) ----------------
 void findPath(const char* startName, const char* endName, int mode) {
     int start = getStationIndexByName(startName);
     int end = getStationIndexByName(endName);
@@ -128,15 +130,17 @@ void findPath(const char* startName, const char* endName, int mode) {
         return;
     }
 
-    float cost[MAX_STATIONS];          
+    float cost[MAX_STATIONS];
+    float dist[MAX_STATIONS];
     int prev[MAX_STATIONS];
     int visited[MAX_STATIONS] = { 0 };
-    int prevLine[MAX_STATIONS];        
+    int prevLine[MAX_STATIONS];
 
     for (int i = 0; i < stationCount; i++) {
         cost[i] = INT_MAX;
         prev[i] = -1;
         prevLine[i] = 0;
+        dist[i] = 0.0f; 
     }
 
     cost[start] = 0;
@@ -156,7 +160,19 @@ void findPath(const char* startName, const char* endName, int mode) {
         SubwayEdge* e = stations[u].edge;
         while (e) {
             int v = e->destIndex;
-            float weight = (mode == 1) ? e->time : e->distance;
+            float weight;
+
+            if (mode == 1) {
+                weight = e->time;
+            }
+            else if (mode == 2) {
+                weight = e->distance;
+            }
+            else if (mode == 3) {
+                float newDistance = dist[u] + e->distance;
+                int newFare = calculateFare(newDistance);
+                weight = (float)newFare;
+            }
 
             if (prevLine[u] != 0 && prevLine[u] != e->line)
                 weight += TRANSFER_PENALTY;
@@ -165,6 +181,7 @@ void findPath(const char* startName, const char* endName, int mode) {
                 cost[v] = cost[u] + weight;
                 prev[v] = u;
                 prevLine[v] = e->line;
+                dist[v] = dist[u] + e->distance;
             }
             e = e->next;
         }
@@ -175,8 +192,13 @@ void findPath(const char* startName, const char* endName, int mode) {
         return;
     }
 
-    // 결과 출력
-    printf("\n최소 %s: %.1f\n", (mode == 1) ? "시간(분)" : "거리(km)", cost[end]);
+    if (mode == 3) {
+        printf("\n최소 요금: %d원\n", (int)cost[end]);  
+    }
+    else {
+        printf("\n최소 %s: %.1f\n", (mode == 1) ? "시간(분)" : "거리(km)", cost[end]); 
+    }
+
     printf("경로: ");
     int path[MAX_STATIONS], count = 0;
     for (int v = end; v != -1; v = prev[v])
@@ -186,9 +208,14 @@ void findPath(const char* startName, const char* endName, int mode) {
         if (i != 0) printf("->");
     }
     printf("\n");
+
+    if (mode == 3) {
+        float totalDist = dist[end];
+        int totalFare = calculateFare(totalDist);
+        printf("총 거리: %.1f km, 총 요금: %d원\n", totalDist, totalFare); 
+    }
 }
 
-//---------------- 메인 함수 ----------------
 int main() {
     int choice;
 
@@ -229,16 +256,17 @@ int main() {
 
             printf("출발역 이름: ");
             fgets(start, sizeof(start), stdin);
-            trim(start);  
+            trim(start);
 
             printf("도착역 이름: ");
             fgets(end, sizeof(end), stdin);
-            trim(end);  
+            trim(end);
 
             printf("1. 최단 시간 경로\n");
             printf("2. 최단 거리 경로\n");
+            printf("3. 최소 요금 경로\n"); 
             printf("선택: ");
-            if (scanf("%d", &mode) != 1 || (mode != 1 && mode != 2)) {
+            if (scanf("%d", &mode) != 1 || (mode < 1 || mode > 3)) {  
                 printf("잘못된 입력입니다.\n");
                 while (getchar() != '\n');
                 break;
