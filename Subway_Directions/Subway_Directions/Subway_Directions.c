@@ -213,10 +213,18 @@ void findPath(const char* startName, const char* endName, int mode) {
     }
     printf("\n");
 
-    if (mode == 3) {
-        float totalDist = dist[end];
+    float totalDist = dist[end];
+
+    if (mode == 1) {
+        printf("ÃÑ ¼Ò¿ä ½Ã°£: %.1f ºÐ\n", cost[end]);
+        printf("ÃÑ °Å¸®: %.1f km\n", totalDist);
+    }
+    else if (mode == 2) {
+        printf("ÃÑ °Å¸®: %.1f km\n", cost[end]);
+    }
+    else if (mode == 3) {
         int totalFare = calculateFare(totalDist);
-        printf("ÃÑ °Å¸®: %.1f km, ÃÑ ¿ä±Ý: %d¿ø\n", totalDist, totalFare);  
+        printf("ÃÑ °Å¸®: %.1f km, ÃÑ ¿ä±Ý: %d¿ø\n", totalDist, totalFare);
     }
 }
 
