@@ -24,6 +24,7 @@
 #define MAX_STATIONS 1000
 #define TRANSFER_PENALTY 3
 
+// 지하철 간선 정보 저장 구조체
 typedef struct SubwayEdge {
     int destIndex;
     float time;
@@ -31,15 +32,17 @@ typedef struct SubwayEdge {
     int line;
     struct SubwayEdge* next;
 } SubwayEdge;
-
+// 지하철 역 정보를 저장하는 구조체
 typedef struct Station {
     char name[MAX_STATION_NAME];
     SubwayEdge* edge;
 } Station;
 
+// 전역 역 목록 배열과 현재 역 수
 Station stations[MAX_STATIONS];
 int stationCount = 0;
 
+//문자열 앞뒤 공백 제거 함수
 void trim(char* str) {
     str[strcspn(str, "\r\n")] = 0;
     char* start = str;
@@ -51,6 +54,7 @@ void trim(char* str) {
     if (start != str) memmove(str, start, strlen(start) + 1);
 }
 
+// 역 이름으로 인덱스를 찾아주는 함수
 int getStationIndexByName(const char* name) {
     for (int i = 0; i < stationCount; i++) {
         if (strcmp(stations[i].name, name) == 0)
@@ -59,6 +63,7 @@ int getStationIndexByName(const char* name) {
     return -1;
 }
 
+//간선 추가함수
 void addEdge(int from, int to, float time, float distance, int line) {
     SubwayEdge* edge = (SubwayEdge*)malloc(sizeof(SubwayEdge));
     edge->destIndex = to;
@@ -68,6 +73,7 @@ void addEdge(int from, int to, float time, float distance, int line) {
     edge->next = stations[from].edge;
     stations[from].edge = edge;
 }
+//CSV 파일 불러드리기
 
 void loadCSV(const char* filename) {
     FILE* file = fopen("subway_line.csv", "r");
@@ -75,7 +81,7 @@ void loadCSV(const char* filename) {
         printf("CSV 파일을 열 수 없습니다: %s\n", filename);
         return;
     }
-
+    // 공백 제거
     char buffer[256];
     fgets(buffer, sizeof(buffer), file);
 
@@ -118,6 +124,7 @@ void loadCSV(const char* filename) {
     printf("총 %d개의 역을 불러왔습니다.\n", stationCount);
 }
 
+// 거리 기반으로 요금 계산하는 함수
 int calculateFare(float distance) {
     int fare = 1400;
     if (distance > 10.0f) {
@@ -128,6 +135,7 @@ int calculateFare(float distance) {
     return fare;
 }
 
+// 지하철 모든 역 출력
 void printStations() {
     printf("\n--- 지하철 역 목록 ---\n");
     for (int i = 0; i < stationCount; i++) {
@@ -135,6 +143,7 @@ void printStations() {
     }
 }
 
+// Dijkstra 알고리즘으로 경로 탐색 함수
 void findPath(const char* startName, const char* endName, int mode) {
     int start = getStationIndexByName(startName);
     int end = getStationIndexByName(endName);
@@ -175,21 +184,23 @@ void findPath(const char* startName, const char* endName, int mode) {
             int v = e->destIndex;
             float weight;
 
-            if (mode == 1) {
+            if (mode == 1) {    // 최소 시간
                 weight = e->time;
             }
-            else if (mode == 2) {
+            else if (mode == 2) {   // 최소 거리
                 weight = e->distance;
             }
-            else if (mode == 3) {
+            else if (mode == 3) {   // 최소 요금
                 float newDistance = dist[u] + e->distance;
                 int newFare = calculateFare(newDistance);
                 weight = (float)newFare;
             }
 
+            // 환승 시 가중 패널티 적용
             if (prevLine[u] != 0 && prevLine[u] != e->line)
                 weight += TRANSFER_PENALTY;
 
+            // 최적 경로 갱신
             if (!visited[v] && cost[u] + weight < cost[v]) {
                 cost[v] = cost[u] + weight;
                 prev[v] = u;
