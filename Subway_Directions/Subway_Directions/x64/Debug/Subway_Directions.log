@@ -1,7 +1,8 @@
 ﻿  Subway_Directions.c
-C:\Users\tksk8\OneDrive\文件\GitHub\Subway_Directions\Subway_Directions\Subway_Directions\Subway_Directions.c(94,26): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\tksk8\OneDrive\文件\GitHub\Subway_Directions\Subway_Directions\Subway_Directions\Subway_Directions.c(95,22): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\tksk8\OneDrive\文件\GitHub\Subway_Directions\Subway_Directions\Subway_Directions\Subway_Directions.c(122,30): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\tksk8\OneDrive\文件\GitHub\Subway_Directions\Subway_Directions\Subway_Directions\Subway_Directions.c(151,19): warning C4305: '=': 'int'에서 'float'(으)로 잘립니다.
-C:\Users\tksk8\OneDrive\文件\GitHub\Subway_Directions\Subway_Directions\Subway_Directions\Subway_Directions.c(160,25): warning C4305: '초기화 중': 'int'에서 'float'(으)로 잘립니다.
-  Subway_Directions.vcxproj -> C:\Users\tksk8\OneDrive\文件\GitHub\Subway_Directions\Subway_Directions\x64\Debug\Subway_Directions.exe
+C:\Users\unive\OneDrive\문서\GitHub\Subway_Directions_program\Subway_Directions\Subway_Directions\Subway_Directions\Subway_Directions.c(103,26): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\unive\OneDrive\문서\GitHub\Subway_Directions_program\Subway_Directions\Subway_Directions\Subway_Directions\Subway_Directions.c(104,22): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\unive\OneDrive\문서\GitHub\Subway_Directions_program\Subway_Directions\Subway_Directions\Subway_Directions\Subway_Directions.c(132,30): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\unive\OneDrive\문서\GitHub\Subway_Directions_program\Subway_Directions\Subway_Directions\Subway_Directions\Subway_Directions.c(163,19): warning C4305: '=': 'int'에서 'float'(으)로 잘립니다.
+C:\Users\unive\OneDrive\문서\GitHub\Subway_Directions_program\Subway_Directions\Subway_Directions\Subway_Directions\Subway_Directions.c(172,25): warning C4305: '초기화 중': 'int'에서 'float'(으)로 잘립니다.
+  LINK : C:\Users\unive\OneDrive\문서\GitHub\Subway_Directions_program\Subway_Directions\Subway_Directions\x64\Debug\Subway_Directions.exe을(를) 찾을 수 없거나 마지막 증분 링크에 의해 빌드되지 않았습니다. 전체 링크를 수행하고 있습니다.
+  Subway_Directions.vcxproj -> C:\Users\unive\OneDrive\문서\GitHub\Subway_Directions_program\Subway_Directions\Subway_Directions\x64\Debug\Subway_Directions.exe

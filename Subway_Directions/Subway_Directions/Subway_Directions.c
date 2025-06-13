@@ -9,14 +9,14 @@
 * 현재 시간을 알려주고 지하철 운행시간이 아님을 알려주었습니다.
 * 
 * 최단경로알고리즘으로는 Dijkstar를 사용하였습니다
-* 노선 추가, 노선 삭제, 역 추가, 역 삭제는 csv 파일에서 입력 삭제 할 수 있습니다.
+* 노선 추가, 노선 삭제, 역 추가, 역 삭제는 csv 파일에서 입력 삭제 할 수 있습니다. 
 */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <limits.h>
 #include <ctype.h>
-#include <time.h>
+#include <time.h>           
 
 #pragma warning(disable : 4996)
 
@@ -32,6 +32,7 @@ typedef struct SubwayEdge {
     int line;
     struct SubwayEdge* next;
 } SubwayEdge;
+
 // 지하철 역 정보를 저장하는 구조체
 typedef struct Station {
     char name[MAX_STATION_NAME];
@@ -73,8 +74,8 @@ void addEdge(int from, int to, float time, float distance, int line) {
     edge->next = stations[from].edge;
     stations[from].edge = edge;
 }
-//CSV 파일 불러드리기
 
+//CSV 파일 불러드리기
 void loadCSV(const char* filename) {
     FILE* file = fopen("subway_line.csv", "r");
     if (!file) {
@@ -313,3 +314,5 @@ int main() {
 
     return 0;
 }
+
+// 역 추가 함수(CSV 파일에 추가하는 것 말고), 호선 추가(CSV 파일에 추가하는 것 말고), 환승 경로 표시?, 
