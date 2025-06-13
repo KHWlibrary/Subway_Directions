@@ -1,15 +1,15 @@
-/*
-*  ÁöÇÏÃ¶ ±æÃ£±â ÇÁ·Î±×·¥
-*  ¼­¿ï ÁÖ¿ä ¿ª 1~4È£¼±
-* 1. ÃÖ¼Ò ½Ã°£ °æ·Î
-* 2. ÃÖ´Ü °Å¸® °æ·Î
-* 3. ÃÖ¼Ò ¿ä±İ °æ·Î
-* ¸¦ ±¸ÇöÇÏ¿´½À´Ï´Ù. 
-* Ãß°¡·Î »õº® 1½ÃºÎÅÍ 5½Ã »çÀÌ¿¡ ÇÁ·Î±×·¥À» ½ÇÇàÇÏ¸é ÀÛµ¿ µÇÁö ¾Ê°í 
-* ÇöÀç ½Ã°£À» ¾Ë·ÁÁÖ°í ÁöÇÏÃ¶ ¿îÇà½Ã°£ÀÌ ¾Æ´ÔÀ» ¾Ë·ÁÁÖ¾ú½À´Ï´Ù.
+ï»¿/*
+*  ì§€í•˜ì²  ê¸¸ì°¾ê¸° í”„ë¡œê·¸ë¨
+*  ì„œìš¸ ì£¼ìš” ì—­ 1~4í˜¸ì„ 
+* 1. ìµœì†Œ ì‹œê°„ ê²½ë¡œ
+* 2. ìµœë‹¨ ê±°ë¦¬ ê²½ë¡œ
+* 3. ìµœì†Œ ìš”ê¸ˆ ê²½ë¡œ
+* ë¥¼ êµ¬í˜„í•˜ì˜€ìŠµë‹ˆë‹¤. 
+* ì¶”ê°€ë¡œ ìƒˆë²½ 1ì‹œë¶€í„° 5ì‹œ ì‚¬ì´ì— í”„ë¡œê·¸ë¨ì„ ì‹¤í–‰í•˜ë©´ ì‘ë™ ë˜ì§€ ì•Šê³  
+* í˜„ì¬ ì‹œê°„ì„ ì•Œë ¤ì£¼ê³  ì§€í•˜ì²  ìš´í–‰ì‹œê°„ì´ ì•„ë‹˜ì„ ì•Œë ¤ì£¼ì—ˆìŠµë‹ˆë‹¤.
 * 
-* ÃÖ´Ü°æ·Î¾Ë°í¸®ÁòÀ¸·Î´Â Dijkstar¸¦ »ç¿ëÇÏ¿´½À´Ï´Ù
-* ³ë¼± Ãß°¡, ³ë¼± »èÁ¦, ¿ª Ãß°¡, ¿ª »èÁ¦´Â csv ÆÄÀÏ¿¡¼­ ÀÔ·Â »èÁ¦ ÇÒ ¼ö ÀÖ½À´Ï´Ù. 
+* ìµœë‹¨ê²½ë¡œì•Œê³ ë¦¬ì¦˜ìœ¼ë¡œëŠ” Dijkstarë¥¼ ì‚¬ìš©í•˜ì˜€ìŠµë‹ˆë‹¤
+* ë…¸ì„  ì¶”ê°€, ë…¸ì„  ì‚­ì œ, ì—­ ì¶”ê°€, ì—­ ì‚­ì œëŠ” csv íŒŒì¼ì—ì„œ ì…ë ¥ ì‚­ì œ í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤. 
 */
 #include <stdio.h>
 #include <stdlib.h>
@@ -24,7 +24,7 @@
 #define MAX_STATIONS 1000
 #define TRANSFER_PENALTY 3
 
-// ÁöÇÏÃ¶ °£¼± Á¤º¸ ÀúÀå ±¸Á¶Ã¼
+// ì§€í•˜ì²  ê°„ì„  ì •ë³´ ì €ì¥ êµ¬ì¡°ì²´
 typedef struct SubwayEdge {
     int destIndex;
     float time;
@@ -33,17 +33,17 @@ typedef struct SubwayEdge {
     struct SubwayEdge* next;
 } SubwayEdge;
 
-// ÁöÇÏÃ¶ ¿ª Á¤º¸¸¦ ÀúÀåÇÏ´Â ±¸Á¶Ã¼
+// ì§€í•˜ì²  ì—­ ì •ë³´ë¥¼ ì €ì¥í•˜ëŠ” êµ¬ì¡°ì²´
 typedef struct Station {
     char name[MAX_STATION_NAME];
     SubwayEdge* edge;
 } Station;
 
-// Àü¿ª ¿ª ¸ñ·Ï ¹è¿­°ú ÇöÀç ¿ª ¼ö
+// ì „ì—­ ì—­ ëª©ë¡ ë°°ì—´ê³¼ í˜„ì¬ ì—­ ìˆ˜
 Station stations[MAX_STATIONS];
 int stationCount = 0;
 
-//¹®ÀÚ¿­ ¾ÕµÚ °ø¹é Á¦°Å ÇÔ¼ö
+//ë¬¸ìì—´ ì•ë’¤ ê³µë°± ì œê±° í•¨ìˆ˜
 void trim(char* str) {
     str[strcspn(str, "\r\n")] = 0;
     char* start = str;
@@ -55,7 +55,7 @@ void trim(char* str) {
     if (start != str) memmove(str, start, strlen(start) + 1);
 }
 
-// ¿ª ÀÌ¸§À¸·Î ÀÎµ¦½º¸¦ Ã£¾ÆÁÖ´Â ÇÔ¼ö
+// ì—­ ì´ë¦„ìœ¼ë¡œ ì¸ë±ìŠ¤ë¥¼ ì°¾ì•„ì£¼ëŠ” í•¨ìˆ˜
 int getStationIndexByName(const char* name) {
     for (int i = 0; i < stationCount; i++) {
         if (strcmp(stations[i].name, name) == 0)
@@ -64,7 +64,7 @@ int getStationIndexByName(const char* name) {
     return -1;
 }
 
-//°£¼± Ãß°¡ÇÔ¼ö
+//ê°„ì„  ì¶”ê°€í•¨ìˆ˜
 void addEdge(int from, int to, float time, float distance, int line) {
     SubwayEdge* edge = (SubwayEdge*)malloc(sizeof(SubwayEdge));
     edge->destIndex = to;
@@ -75,14 +75,14 @@ void addEdge(int from, int to, float time, float distance, int line) {
     stations[from].edge = edge;
 }
 
-//CSV ÆÄÀÏ ºÒ·¯µå¸®±â
+//CSV íŒŒì¼ ë¶ˆëŸ¬ë“œë¦¬ê¸°
 void loadCSV(const char* filename) {
     FILE* file = fopen("subway_line.csv", "r");
     if (!file) {
-        printf("CSV ÆÄÀÏÀ» ¿­ ¼ö ¾ø½À´Ï´Ù: %s\n", filename);
+        printf("CSV íŒŒì¼ì„ ì—´ ìˆ˜ ì—†ìŠµë‹ˆë‹¤: %s\n", filename);
         return;
     }
-    // °ø¹é Á¦°Å
+    // ê³µë°± ì œê±°
     char buffer[256];
     fgets(buffer, sizeof(buffer), file);
 
@@ -122,10 +122,10 @@ void loadCSV(const char* filename) {
     }
 
     fclose(file);
-    printf("ÃÑ %d°³ÀÇ ¿ªÀ» ºÒ·¯¿Ô½À´Ï´Ù.\n", stationCount);
+    printf("ì´ %dê°œì˜ ì—­ì„ ë¶ˆëŸ¬ì™”ìŠµë‹ˆë‹¤.\n", stationCount);
 }
 
-// °Å¸® ±â¹İÀ¸·Î ¿ä±İ °è»êÇÏ´Â ÇÔ¼ö
+// ê±°ë¦¬ ê¸°ë°˜ìœ¼ë¡œ ìš”ê¸ˆ ê³„ì‚°í•˜ëŠ” í•¨ìˆ˜
 int calculateFare(float distance) {
     int fare = 1400;
     if (distance > 10.0f) {
@@ -136,20 +136,20 @@ int calculateFare(float distance) {
     return fare;
 }
 
-// ÁöÇÏÃ¶ ¸ğµç ¿ª Ãâ·Â
+// ì§€í•˜ì²  ëª¨ë“  ì—­ ì¶œë ¥
 void printStations() {
-    printf("\n--- ÁöÇÏÃ¶ ¿ª ¸ñ·Ï ---\n");
+    printf("\n--- ì§€í•˜ì²  ì—­ ëª©ë¡ ---\n");
     for (int i = 0; i < stationCount; i++) {
         printf("%d - %s\n", i, stations[i].name);
     }
 }
 
-// Dijkstra ¾Ë°í¸®ÁòÀ¸·Î °æ·Î Å½»ö ÇÔ¼ö
+// Dijkstra ì•Œê³ ë¦¬ì¦˜ìœ¼ë¡œ ê²½ë¡œ íƒìƒ‰ í•¨ìˆ˜
 void findPath(const char* startName, const char* endName, int mode) {
     int start = getStationIndexByName(startName);
     int end = getStationIndexByName(endName);
     if (start == -1 || end == -1) {
-        printf("ÀÔ·ÂÇÑ ¿ªÀÌ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.\n");
+        printf("ì…ë ¥í•œ ì—­ì´ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.\n");
         return;
     }
 
@@ -185,23 +185,23 @@ void findPath(const char* startName, const char* endName, int mode) {
             int v = e->destIndex;
             float weight;
 
-            if (mode == 1) {    // ÃÖ¼Ò ½Ã°£
+            if (mode == 1) {    // ìµœì†Œ ì‹œê°„
                 weight = e->time;
             }
-            else if (mode == 2) {   // ÃÖ¼Ò °Å¸®
+            else if (mode == 2) {   // ìµœì†Œ ê±°ë¦¬
                 weight = e->distance;
             }
-            else if (mode == 3) {   // ÃÖ¼Ò ¿ä±İ
+            else if (mode == 3) {   // ìµœì†Œ ìš”ê¸ˆ
                 float newDistance = dist[u] + e->distance;
                 int newFare = calculateFare(newDistance);
                 weight = (float)newFare;
             }
 
-            // È¯½Â ½Ã °¡Áß ÆĞ³ÎÆ¼ Àû¿ë
+            // í™˜ìŠ¹ ì‹œ ê°€ì¤‘ íŒ¨ë„í‹° ì ìš©
             if (prevLine[u] != 0 && prevLine[u] != e->line)
                 weight += TRANSFER_PENALTY;
 
-            // ÃÖÀû °æ·Î °»½Å
+            // ìµœì  ê²½ë¡œ ê°±ì‹ 
             if (!visited[v] && cost[u] + weight < cost[v]) {
                 cost[v] = cost[u] + weight;
                 prev[v] = u;
@@ -213,46 +213,168 @@ void findPath(const char* startName, const char* endName, int mode) {
     }
 
     if (cost[end] == INT_MAX) {
-        printf("°æ·Î¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù.\n");
+        printf("ê²½ë¡œë¥¼ ì°¾ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.\n");
         return;
     }
 
-    printf("°æ·Î: ");
+    printf("ê²½ë¡œ: ");
     int path[MAX_STATIONS], count = 0;
     for (int v = end; v != -1; v = prev[v])
         path[count++] = v;
+    int lastLine = prevLine[path[count - 1]];
     for (int i = count - 1; i >= 0; i--) {
-        printf("%s", stations[path[i]].name);
-        if (i != 0) printf("->");
+        int curr = path[i];
+        printf("%s", stations[curr].name);
+        if (i != 0) {
+            int next = path[i - 1];
+            int edgeLine = prevLine[next];
+            if (edgeLine != lastLine) {
+                printf(" (í™˜ìŠ¹: %dí˜¸ì„ )", edgeLine);
+                lastLine = edgeLine;
+            }
+            printf(" -> ");
+        }
     }
     printf("\n");
 
     float totalDist = dist[end];
 
     if (mode == 1) {
-        printf("ÃÑ ¼Ò¿ä ½Ã°£: %.1f ºĞ\n", cost[end]);
-        printf("ÃÑ °Å¸®: %.1f km\n", totalDist);
+        printf("ì´ ì†Œìš” ì‹œê°„: %.1f ë¶„\n", cost[end]);
+        printf("ì´ ê±°ë¦¬: %.1f km\n", totalDist);
     }
     else if (mode == 2) {
-        printf("ÃÑ °Å¸®: %.1f km\n", cost[end]);
+        printf("ì´ ê±°ë¦¬: %.1f km\n", cost[end]);
     }
     else if (mode == 3) {
         int totalFare = calculateFare(totalDist);
-        printf("ÃÑ °Å¸®: %.1f km, ÃÑ ¿ä±İ: %d¿ø\n", totalDist, totalFare);
+        printf("ì´ ê±°ë¦¬: %.1f km, ì´ ìš”ê¸ˆ: %dì›\n", totalDist, totalFare);
     }
 }
+// ì—­ ì¶”ê°€ í•¨ìˆ˜
+void addStationInteractive() {
+    char name[MAX_STATION_NAME];
+    printf("ì¶”ê°€í•  ì—­ ì´ë¦„: ");
+    fgets(name, sizeof(name), stdin);
+    trim(name);
+    if (getStationIndexByName(name) != -1) {
+        printf("ì´ë¯¸ ì¡´ì¬í•˜ëŠ” ì—­ì…ë‹ˆë‹¤.\n");
+        return;
+    }
+    if (stationCount >= MAX_STATIONS) {
+        printf("ë” ì´ìƒ ì—­ì„ ì¶”ê°€í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.\n");
+        return;
+    }
+    memset(&stations[stationCount], 0, sizeof(Station));
+    strncpy(stations[stationCount].name, name, MAX_STATION_NAME - 1);
+    stationCount++;
+    printf("ì—­ '%s'ê°€ ì¶”ê°€ë˜ì—ˆìŠµë‹ˆë‹¤.\n", name);
+}
+
+// ê°„ì„  ì¶”ê°€ + CSV ì €ì¥
+void addLineInteractive() {
+    char from[MAX_STATION_NAME], to[MAX_STATION_NAME];
+    float distance, time;
+    int line;
+    printf("ì¶œë°œì—­ ì´ë¦„: ");
+    fgets(from, sizeof(from), stdin); trim(from);
+    printf("ë„ì°©ì—­ ì´ë¦„: ");
+    fgets(to, sizeof(to), stdin); trim(to);
+    printf("ê±°ë¦¬ (km): "); scanf("%f", &distance);
+    printf("ì‹œê°„ (ë¶„): "); scanf("%f", &time);
+    printf("í˜¸ì„  ë²ˆí˜¸: "); scanf("%d", &line);
+    while (getchar() != '\n');
+    int fromIdx = getStationIndexByName(from);
+    if (fromIdx == -1) {
+        memset(&stations[stationCount], 0, sizeof(Station));
+        strncpy(stations[stationCount].name, from, MAX_STATION_NAME - 1);
+        fromIdx = stationCount++;
+    }
+    int toIdx = getStationIndexByName(to);
+    if (toIdx == -1) {
+        memset(&stations[stationCount], 0, sizeof(Station));
+        strncpy(stations[stationCount].name, to, MAX_STATION_NAME - 1);
+        toIdx = stationCount++;
+    }
+    addEdge(fromIdx, toIdx, time, distance, line);
+    addEdge(toIdx, fromIdx, time, distance, line);
+    appendToCSV("subway_line.csv", line, from, to, distance, time); // CSV ì €ì¥
+    printf("í˜¸ì„ ì´ ì¶”ê°€ë˜ì—ˆìŠµë‹ˆë‹¤.\n");
+}
+
+// CSVì— ë…¸ì„  ì¶”ê°€
+void appendToCSV(const char* filename, int line, const char* from, const char* to, float distance, float time){
+    FILE* file = fopen(filename, "a");
+    if (!file) {
+        printf("CSV íŒŒì¼ì„ ì—´ ìˆ˜ ì—†ìŠµë‹ˆë‹¤: %s\n", filename);
+        return;
+    }
+    // ë¹ˆ í˜¸ì„ ìœ¼ë¡œ ì €ì¥í•˜ê±°ë‚˜, ê³ ì • í¬ë§· ì‚¬ìš©
+    fprintf(file, "%d,%s,%s,%.1f,%.1f\n", line, from, to, distance, time);
+    fclose(file);
+}
+
+// ì—­ ì‚­ì œ
+void deleteStationInteractive() {
+    char name[MAX_STATION_NAME];
+    printf("ì‚­ì œí•  ì—­ ì´ë¦„: ");
+    fgets(name, sizeof(name), stdin);
+    trim(name);
+    int target = getStationIndexByName(name);
+    if (target == -1) {
+        printf("í•´ë‹¹ ì—­ì€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.\n");
+        return;
+    }
+    for (int i = 0; i < stationCount; i++) {
+        if (i == target) continue;
+        SubwayEdge** edgePtr = &stations[i].edge;
+        while (*edgePtr) {
+            if ((*edgePtr)->destIndex == target) {
+                SubwayEdge* temp = *edgePtr;
+                *edgePtr = (*edgePtr)->next;
+                free(temp);
+            }
+            else {
+                edgePtr = &(*edgePtr)->next;
+            }
+        }
+    }
+    SubwayEdge* edge = stations[target].edge;
+    while (edge) {
+        SubwayEdge* temp = edge;
+        edge = edge->next;
+        free(temp);
+    }
+    for (int i = target; i < stationCount - 1; i++) {
+        stations[i] = stations[i + 1];
+    }
+    stationCount--;
+    for (int i = 0; i < stationCount; i++) {
+        SubwayEdge* e = stations[i].edge;
+        while (e) {
+            if (e->destIndex > target) {
+                e->destIndex--;
+            }
+            e = e->next;
+        }
+    }
+    printf("ì—­ '%s'ê°€ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.\n", name);
+}
+
 
 int main() {
     int choice;
 
     while (1) {
         system("cls");
-        printf("\n\n\t\tÁöÇÏÃ¶ ±æÃ£±â ÇÁ·Î±×·¥\n\n");
-        printf("1. CSV ÆÄÀÏ ºÒ·¯¿À±â\n");
-        printf("2. ¿ª ¸ñ·Ï Ãâ·Â\n");
-        printf("3. ±æÃ£±â\n");
-        printf("0. ÇÁ·Î±×·¥ Á¾·á\n");
-        printf("\n¸Ş´º ¼±ÅÃ : ");
+        printf("\n\n\t\tì§€í•˜ì²  ê¸¸ì°¾ê¸° í”„ë¡œê·¸ë¨\n\n");
+        printf("1. CSV íŒŒì¼ ë¶ˆëŸ¬ì˜¤ê¸°\n");
+        printf("2. ì—­ ëª©ë¡ ì¶œë ¥\n");
+        printf("3. ê¸¸ì°¾ê¸°\n");
+        printf("4. í˜¸ì„  ì¶”ê°€\n");
+        printf("5. ì—­ ì‚­ì œ\n");
+        printf("0. í”„ë¡œê·¸ë¨ ì¢…ë£Œ\n");
+        printf("\në©”ë‰´ ì„ íƒ : ");
         if (scanf("%d", &choice) != 1) {
             while (getchar() != '\n');
             continue;
@@ -273,27 +395,27 @@ int main() {
             local = localtime(&now);
 
             if (local->tm_hour >= 1 && local->tm_hour < 5) {
-                printf("\nÇöÀç ½Ã°¢Àº %02d:%02dÀÔ´Ï´Ù. ÁöÇÏÃ¶ ¿îÇà ½Ã°£ÀÌ ¾Æ´Õ´Ï´Ù.\n", local->tm_hour, local->tm_min);
+                printf("\ní˜„ì¬ ì‹œê°ì€ %02d:%02dì…ë‹ˆë‹¤. ì§€í•˜ì²  ìš´í–‰ ì‹œê°„ì´ ì•„ë‹™ë‹ˆë‹¤.\n", local->tm_hour, local->tm_min);
                 break;
             }
 
             char start[MAX_STATION_NAME], end[MAX_STATION_NAME];
             int mode;
 
-            printf("Ãâ¹ß¿ª ÀÌ¸§: ");
+            printf("ì¶œë°œì—­ ì´ë¦„: ");
             fgets(start, sizeof(start), stdin);
             trim(start);
 
-            printf("µµÂø¿ª ÀÌ¸§: ");
+            printf("ë„ì°©ì—­ ì´ë¦„: ");
             fgets(end, sizeof(end), stdin);
             trim(end);
 
-            printf("1. ÃÖ¼Ò ½Ã°£ °æ·Î\n");
-            printf("2. ÃÖ´Ü °Å¸® °æ·Î\n");
-            printf("3. ÃÖ¼Ò ¿ä±İ °æ·Î\n");  
-            printf("¼±ÅÃ: ");
+            printf("1. ìµœì†Œ ì‹œê°„ ê²½ë¡œ\n");
+            printf("2. ìµœë‹¨ ê±°ë¦¬ ê²½ë¡œ\n");
+            printf("3. ìµœì†Œ ìš”ê¸ˆ ê²½ë¡œ\n");  
+            printf("ì„ íƒ: ");
             if (scanf("%d", &mode) != 1 || (mode < 1 || mode > 3)) {  
-                printf("Àß¸øµÈ ÀÔ·ÂÀÔ´Ï´Ù.\n");
+                printf("ì˜ëª»ëœ ì…ë ¥ì…ë‹ˆë‹¤.\n");
                 while (getchar() != '\n');
                 break;
             }
@@ -302,10 +424,16 @@ int main() {
             findPath(start, end, mode);
             break;
         }
+        case 4:
+            addLineInteractive();
+            break;
+        case 5:
+            deleteStationInteractive();
+            break;
         case 0:
             exit(0);
         default:
-            printf("Àß¸øµÈ ¼±ÅÃÀÔ´Ï´Ù.\n");
+            printf("ì˜ëª»ëœ ì„ íƒì…ë‹ˆë‹¤.\n");
         }
 
         printf("\n\n\t\t");
@@ -314,5 +442,4 @@ int main() {
 
     return 0;
 }
-
-// ¿ª Ãß°¡ ÇÔ¼ö(CSV ÆÄÀÏ¿¡ Ãß°¡ÇÏ´Â °Í ¸»°í), È£¼± Ãß°¡(CSV ÆÄÀÏ¿¡ Ãß°¡ÇÏ´Â °Í ¸»°í), È¯½Â °æ·Î Ç¥½Ã?, 
+ 

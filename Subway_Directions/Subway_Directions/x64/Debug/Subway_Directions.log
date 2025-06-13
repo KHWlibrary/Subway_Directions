@@ -4,5 +4,5 @@ C:\Users\unive\OneDrive\문서\GitHub\Subway_Directions_program\Subway_Direction
 C:\Users\unive\OneDrive\문서\GitHub\Subway_Directions_program\Subway_Directions\Subway_Directions\Subway_Directions\Subway_Directions.c(132,30): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 C:\Users\unive\OneDrive\문서\GitHub\Subway_Directions_program\Subway_Directions\Subway_Directions\Subway_Directions\Subway_Directions.c(163,19): warning C4305: '=': 'int'에서 'float'(으)로 잘립니다.
 C:\Users\unive\OneDrive\문서\GitHub\Subway_Directions_program\Subway_Directions\Subway_Directions\Subway_Directions\Subway_Directions.c(172,25): warning C4305: '초기화 중': 'int'에서 'float'(으)로 잘립니다.
-  LINK : C:\Users\unive\OneDrive\문서\GitHub\Subway_Directions_program\Subway_Directions\Subway_Directions\x64\Debug\Subway_Directions.exe을(를) 찾을 수 없거나 마지막 증분 링크에 의해 빌드되지 않았습니다. 전체 링크를 수행하고 있습니다.
-  Subway_Directions.vcxproj -> C:\Users\unive\OneDrive\문서\GitHub\Subway_Directions_program\Subway_Directions\Subway_Directions\x64\Debug\Subway_Directions.exe
+C:\Users\unive\OneDrive\문서\GitHub\Subway_Directions_program\Subway_Directions\Subway_Directions\Subway_Directions\Subway_Directions.c(301,5): warning C4013: 'appendToCSV'이(가) 정의되지 않았습니다. extern은 int형을 반환하는 것으로 간주합니다.
+C:\Users\unive\OneDrive\문서\GitHub\Subway_Directions_program\Subway_Directions\Subway_Directions\Subway_Directions\Subway_Directions.c(306,6): error C2371: 'appendToCSV': 재정의. 기본 형식이 다릅니다.
