@@ -1,8 +1,7 @@
 ﻿  Subway_Directions.c
-C:\Users\unive\OneDrive\문서\GitHub\Subway_Directions_program\Subway_Directions\Subway_Directions\Subway_Directions\Subway_Directions.c(103,26): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\unive\OneDrive\문서\GitHub\Subway_Directions_program\Subway_Directions\Subway_Directions\Subway_Directions\Subway_Directions.c(104,22): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\unive\OneDrive\문서\GitHub\Subway_Directions_program\Subway_Directions\Subway_Directions\Subway_Directions\Subway_Directions.c(132,30): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\unive\OneDrive\문서\GitHub\Subway_Directions_program\Subway_Directions\Subway_Directions\Subway_Directions\Subway_Directions.c(163,19): warning C4305: '=': 'int'에서 'float'(으)로 잘립니다.
-C:\Users\unive\OneDrive\문서\GitHub\Subway_Directions_program\Subway_Directions\Subway_Directions\Subway_Directions\Subway_Directions.c(172,25): warning C4305: '초기화 중': 'int'에서 'float'(으)로 잘립니다.
-C:\Users\unive\OneDrive\문서\GitHub\Subway_Directions_program\Subway_Directions\Subway_Directions\Subway_Directions\Subway_Directions.c(301,5): warning C4013: 'appendToCSV'이(가) 정의되지 않았습니다. extern은 int형을 반환하는 것으로 간주합니다.
-C:\Users\unive\OneDrive\문서\GitHub\Subway_Directions_program\Subway_Directions\Subway_Directions\Subway_Directions\Subway_Directions.c(306,6): error C2371: 'appendToCSV': 재정의. 기본 형식이 다릅니다.
+C:\Users\unive\OneDrive\문서\GitHub\Subway_Directions_program\Subway_Directions\Subway_Directions\Subway_Directions\Subway_Directions.c(84,30): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\unive\OneDrive\문서\GitHub\Subway_Directions_program\Subway_Directions\Subway_Directions\Subway_Directions\Subway_Directions.c(124,26): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\unive\OneDrive\문서\GitHub\Subway_Directions_program\Subway_Directions\Subway_Directions\Subway_Directions\Subway_Directions.c(125,22): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\unive\OneDrive\문서\GitHub\Subway_Directions_program\Subway_Directions\Subway_Directions\Subway_Directions\Subway_Directions.c(175,19): warning C4305: '=': 'int'에서 'float'(으)로 잘립니다.
+C:\Users\unive\OneDrive\문서\GitHub\Subway_Directions_program\Subway_Directions\Subway_Directions\Subway_Directions\Subway_Directions.c(184,25): warning C4305: '초기화 중': 'int'에서 'float'(으)로 잘립니다.
+  Subway_Directions.vcxproj -> C:\Users\unive\OneDrive\문서\GitHub\Subway_Directions_program\Subway_Directions\Subway_Directions\x64\Debug\Subway_Directions.exe
