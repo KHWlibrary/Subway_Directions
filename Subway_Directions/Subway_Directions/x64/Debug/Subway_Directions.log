@@ -1,7 +1,11 @@
 ﻿  Subway_Directions.c
-C:\Users\unive\OneDrive\문서\GitHub\Subway_Directions_program\Subway_Directions\Subway_Directions\Subway_Directions\Subway_Directions.c(84,30): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\unive\OneDrive\문서\GitHub\Subway_Directions_program\Subway_Directions\Subway_Directions\Subway_Directions\Subway_Directions.c(124,26): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\unive\OneDrive\문서\GitHub\Subway_Directions_program\Subway_Directions\Subway_Directions\Subway_Directions\Subway_Directions.c(125,22): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\unive\OneDrive\문서\GitHub\Subway_Directions_program\Subway_Directions\Subway_Directions\Subway_Directions\Subway_Directions.c(175,19): warning C4305: '=': 'int'에서 'float'(으)로 잘립니다.
-C:\Users\unive\OneDrive\문서\GitHub\Subway_Directions_program\Subway_Directions\Subway_Directions\Subway_Directions\Subway_Directions.c(184,25): warning C4305: '초기화 중': 'int'에서 'float'(으)로 잘립니다.
-  Subway_Directions.vcxproj -> C:\Users\unive\OneDrive\문서\GitHub\Subway_Directions_program\Subway_Directions\Subway_Directions\x64\Debug\Subway_Directions.exe
+C:\Users\tksk8\OneDrive\文件\GitHub\Subway_Directions\Subway_Directions\Subway_Directions\Subway_Directions.c(83,30): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\tksk8\OneDrive\文件\GitHub\Subway_Directions\Subway_Directions\Subway_Directions\Subway_Directions.c(123,26): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\tksk8\OneDrive\文件\GitHub\Subway_Directions\Subway_Directions\Subway_Directions\Subway_Directions.c(124,22): warning C4244: '초기화 중': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\tksk8\OneDrive\文件\GitHub\Subway_Directions\Subway_Directions\Subway_Directions\Subway_Directions.c(174,19): warning C4305: '=': 'int'에서 'float'(으)로 잘립니다.
+C:\Users\tksk8\OneDrive\文件\GitHub\Subway_Directions\Subway_Directions\Subway_Directions\Subway_Directions.c(183,25): warning C4305: '초기화 중': 'int'에서 'float'(으)로 잘립니다.
+C:\Users\tksk8\OneDrive\文件\GitHub\Subway_Directions\Subway_Directions\Subway_Directions\Subway_Directions.c(476,55): warning C4474: 'printf' : 서식 문자열에 전달된 인수가 너무 많습니다.
+      C:\Users\tksk8\OneDrive\文件\GitHub\Subway_Directions\Subway_Directions\Subway_Directions\Subway_Directions.c(476,55):
+      자리 표시자 및 해당 매개 변수에는 variadic 인수가 1개 필요하지만 2개가 제공되었습니다.
+  
+  Subway_Directions.vcxproj -> C:\Users\tksk8\OneDrive\文件\GitHub\Subway_Directions\Subway_Directions\x64\Debug\Subway_Directions.exe

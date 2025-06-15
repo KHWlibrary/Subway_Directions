@@ -4,10 +4,9 @@
 * 1. 최소 시간 경로
 * 2. 최단 거리 경로
 * 3. 최소 요금 경로
-* 4. 호선 추가
+* 4. 역/호선 추가
 * 5. 호선 삭제
-* 6. 역 추가
-* 7. 역 삭제
+* 6. 역 삭제
 * 0. 프로그램 종료
 * 추가로 새벽 1시부터 5시 사이에 프로그램을 실행하면 작동 되지 않고
 * 현재 시간을 알려주고 지하철 운행시간이 아님을 알려주었습니다.
@@ -235,14 +234,14 @@ void findPath(const char* startName, const char* endName, int mode) {
 
     float totalDist = dist[end];
     if (mode == 1)
-        printf("총 소요 시간: %.1f 분, 거리: %.1f km\n", cost[end], totalDist);
+        printf("소요 시간: %.1f 분, 거리: %.1f km\n", cost[end], totalDist);
     else if (mode == 2)
-        printf("총 거리: %.1f km\n", cost[end]);
+        printf("거리: %.1f km\n", totalDist);
     else if (mode == 3)
-        printf("총 거리: %.1f km, 총 요금: %d원\n", totalDist, calculateFare(totalDist));
+        printf("거리: %.1f km, 총 요금: %d원\n", totalDist, calculateFare(totalDist));
 }
 
-// 호선 추가 함수
+// 역/호선 추가 함수
 void addLineInteractive() {
     char from[MAX_STATION_NAME], to[MAX_STATION_NAME];
     float distance, time;
@@ -287,7 +286,7 @@ void deleteLineInteractive() {
 
     int deletedCount = 0;
 
-    // 각 역에 연결된 간선 중에서 해당 호선인 간선을 제거
+    // 메모리에서 간선 제거
     for (int i = 0; i < stationCount; i++) {
         SubwayEdge** edgePtr = &stations[i].edge;
         while (*edgePtr) {
@@ -303,37 +302,49 @@ void deleteLineInteractive() {
         }
     }
 
+    // CSV에서 해당 호선 제거
+    FILE* original = fopen("subway_line.csv", "r");
+    FILE* temp = fopen("temp.csv", "w");
+    if (!original || !temp) {
+        printf("파일 처리 오류.\n");
+        if (original) fclose(original);
+        if (temp) fclose(temp);
+        return;
+    }
+
+    char buffer[256];
+    // 헤더 복사
+    if (fgets(buffer, sizeof(buffer), original)) {
+        fputs(buffer, temp);
+    }
+
+    while (fgets(buffer, sizeof(buffer), original)) {
+        int line;
+        char tempBuf[256];
+        strncpy(tempBuf, buffer, sizeof(tempBuf));
+        char* token = strtok(tempBuf, ",");
+        if (!token) continue;
+        line = atoi(token);
+        if (line != targetLine) {
+            fputs(buffer, temp);  // 다른 호선만 복사
+        }
+    }
+
+    fclose(original);
+    fclose(temp);
+
+    // 원본 파일 덮어쓰기
+    remove("subway_line.csv");
+    rename("temp.csv", "subway_line.csv");
+
     if (deletedCount > 0) {
-        printf("%d호선의 간선 %d개가 삭제되었습니다.\n", targetLine, deletedCount);
+        printf("%d호선의 간선 %d개가 제거되었습니다.\n", targetLine, deletedCount);
     }
     else {
         printf("해당 호선은 존재하지 않거나 연결된 간선이 없습니다.\n");
     }
 }
 
-// 역 추가
-void addStationInteractive() {
-    char name[MAX_STATION_NAME];
-    printf("추가할 역 이름: ");
-    fgets(name, sizeof(name), stdin);
-    trim(name);
-
-    if (getStationIndexByName(name) != -1) {
-        printf("이미 존재하는 역입니다.\n");
-        return;
-    }
-
-    if (stationCount >= MAX_STATIONS) {
-        printf("더 이상 역을 추가할 수 없습니다.\n");
-        return;
-    }
-
-    memset(&stations[stationCount], 0, sizeof(Station));
-    strncpy(stations[stationCount].name, name, MAX_STATION_NAME - 1);
-    stationCount++;
-
-    printf("역 '%s'가 추가되었습니다.\n", name);
-}
 // 역 삭제
 void deleteStationInteractive() {
     char name[MAX_STATION_NAME];
@@ -347,7 +358,40 @@ void deleteStationInteractive() {
         return;
     }
 
-    // 다른 역들에 연결된 해당 역으로의 간선 삭제
+    // 🔧 삭제 전 연결된 역들 파악해서 자동 연결 시도
+    int linkedIndices[10];
+    float distances[10];
+    float times[10];
+    int lines[10];
+    int linkCount = 0;
+
+    SubwayEdge* e = stations[target].edge;
+    while (e && linkCount < 10) {
+        linkedIndices[linkCount] = e->destIndex;
+        distances[linkCount] = e->distance;
+        times[linkCount] = e->time;
+        lines[linkCount] = e->line;
+        linkCount++;
+        e = e->next;
+    }
+
+    // 연결된 두 역 A, C가 있고 같은 호선이면 자동 연결
+    if (linkCount == 2) {
+        int a = linkedIndices[0];
+        int c = linkedIndices[1];
+        float totalDist = distances[0] + distances[1];
+        float totalTime = times[0] + times[1];
+
+        if (lines[0] == lines[1]) {
+            addEdge(a, c, totalTime, totalDist, lines[0]);
+            addEdge(c, a, totalTime, totalDist, lines[0]);
+            appendToCSV("subway_line.csv", lines[0], stations[a].name, stations[c].name, totalDist, totalTime);
+            printf("'%s' 삭제로 인해 '%s' ↔ '%s' 간선이 자동 추가되었습니다 (%.1fkm, %.1f분).\n",
+                stations[target].name, stations[a].name, stations[c].name, totalDist, totalTime);
+        }
+    }
+
+    // 1. 메모리에서 삭제 작업
     for (int i = 0; i < stationCount; i++) {
         if (i == target) continue;
         SubwayEdge** edgePtr = &stations[i].edge;
@@ -358,7 +402,6 @@ void deleteStationInteractive() {
                 free(temp);
             }
             else {
-                // 삭제된 역 이후 인덱스면 하나씩 감소시켜야 함
                 if ((*edgePtr)->destIndex > target) {
                     (*edgePtr)->destIndex--;
                 }
@@ -367,7 +410,6 @@ void deleteStationInteractive() {
         }
     }
 
-    // 본인 간선 해제
     SubwayEdge* edge = stations[target].edge;
     while (edge) {
         SubwayEdge* temp = edge;
@@ -375,14 +417,66 @@ void deleteStationInteractive() {
         free(temp);
     }
 
-    // 역 배열에서 삭제 
     for (int i = target; i < stationCount - 1; i++) {
         stations[i] = stations[i + 1];
     }
     stationCount--;
 
-    printf("역 '%s'가 삭제되었습니다.\n", name);
+    // 2. CSV에서 삭제
+    FILE* original = fopen("subway_line.csv", "r");
+    FILE* temp = fopen("temp.csv", "w");
+    if (!original || !temp) {
+        printf("CSV 파일 열기 실패\n");
+        if (original) fclose(original);
+        if (temp) fclose(temp);
+        return;
+    }
+
+    char buffer[512];
+    int deletedCSV = 0;
+    int isFirstLine = 1;
+
+    while (fgets(buffer, sizeof(buffer), original)) {
+        if (isFirstLine) {
+            fputs(buffer, temp);
+            isFirstLine = 0;
+            continue;
+        }
+
+        char bufCopy[512];
+        strncpy(bufCopy, buffer, sizeof(bufCopy));
+        bufCopy[sizeof(bufCopy) - 1] = '\0';
+
+        char* token = strtok(bufCopy, ","); // 호선
+        if (!token) continue;
+
+        token = strtok(NULL, ","); // 출발역
+        if (!token) continue;
+        char from[MAX_STATION_NAME];
+        strncpy(from, token, MAX_STATION_NAME); trim(from);
+
+        token = strtok(NULL, ","); // 도착역
+        if (!token) continue;
+        char to[MAX_STATION_NAME];
+        strncpy(to, token, MAX_STATION_NAME); trim(to);
+
+        if (strcmp(from, name) == 0 || strcmp(to, name) == 0) {
+            deletedCSV++;
+            continue;
+        }
+
+        fputs(buffer, temp);
+    }
+
+    fclose(original);
+    fclose(temp);
+    remove("subway_line.csv");
+    rename("temp.csv", "subway_line.csv");
+
+    printf("역 '%s' 삭제되었습니다.\n", name, deletedCSV);
 }
+
+
 
 // ---------------------- 메인 함수 ----------------------
 
@@ -395,10 +489,9 @@ int main() {
         printf("1. CSV 파일 불러오기\n");
         printf("2. 역 목록 출력\n");
         printf("3. 길찾기\n");
-        printf("4. 호선 추가(기존역 가능, 새로운 역 만들기 가능)\n");
+        printf("4. 역/호선 추가(기존역 가능, 새로운 역 만들기 가능)\n");
         printf("5. 호선 삭제\n");
-        printf("6. 역 추가\n");
-        printf("7. 역 삭제\n");
+        printf("6. 역 삭제\n");
         printf("0. 프로그램 종료\n");
         printf("\n메뉴 선택 : ");
         if (scanf("%d", &choice) != 1) {
@@ -446,9 +539,6 @@ int main() {
             deleteLineInteractive();
             break;
         case 6:
-            addStationInteractive();
-            break;
-        case 7:
             deleteStationInteractive();
             break;
 
